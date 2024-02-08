@@ -32,6 +32,7 @@ const idResultsList = document.querySelector("#id-results-list");
 const datalistOptions = document.querySelector("#datalistOptions");
 const inputSearch = document.querySelector("#input-search");
 const clearBtn = document.querySelector("#clear-btn");
+const searchBtn = document.querySelector("#search-btn");
 const idKeyword = document.querySelector("#id-keyword");
 // const idResultsList = $("#id-results-list");
 
@@ -48,6 +49,11 @@ $(document).ready(function() {
     // datalistOptions
     $(clearBtn).on('click',() =>{
         inputSearch.value = ''
+    })
+
+    $(searchBtn).on('click',() =>{
+        console.log("searchBtn: ");
+        renderResultsList(data, inputSearch.value)
     })
 
 });
@@ -74,6 +80,7 @@ function loadSuggession(params){
 }
 
 function renderMap(params) {
+    
     idResultsList.innerHTML += `
         <div class="col-md-4">
             <div class="card">
@@ -103,8 +110,9 @@ function renderMap(params) {
 
 function renderResultsList(params, keywordParam) {
     if(params){
+        idResultsList.innerHTML = ``;
         const res = params
-        .filter(itemFil => (itemFil.tltle || '').includes(keywordParam || ''))
+        .filter(itemFil => (itemFil.title || '').includes(keywordParam || ''))
         .map(renderMap)
     }
 }
